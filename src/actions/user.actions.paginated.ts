@@ -20,7 +20,19 @@ export async function getUsersPaginated(params: { page: number; limit: number; s
   const [data, totalCount] = await Promise.all([
     prisma.user.findMany({
       where,
-      include: { roles: true },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        createdAt: true,
+        updatedAt: true,
+        roles: {
+          select: {
+            id: true,
+            name: true,
+          }
+        }
+      },
       orderBy: { [sortKey || 'createdAt']: sortDir || 'desc' },
       skip: page * limit,
       take: limit,
