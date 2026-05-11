@@ -82,3 +82,72 @@ button, input, select, textarea {
   opacity: 1;
   color: var(--primary);
 }
+
+/* Responsive Dashboard Layout */
+.dashboard-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.dashboard-sidebar {
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.dashboard-sidebar.closed {
+  width: 0px;
+  border-right: none;
+  opacity: 0;
+}
+
+.dashboard-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  backdrop-filter: blur(2px);
+}
+
+.dashboard-main {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 0; /* Prevents flex items from overflowing */
+}
+
+@media (max-width: 768px) {
+  .dashboard-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(0);
+    width: 260px;
+    opacity: 1;
+  }
+
+  .dashboard-sidebar.closed {
+    transform: translateX(-100%);
+    width: 260px;
+    opacity: 1;
+  }
+
+  .dashboard-backdrop.open {
+    display: block;
+  }
+}

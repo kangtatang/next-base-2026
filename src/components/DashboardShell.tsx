@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Protect from '@/components/Protect';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -24,22 +24,35 @@ export default function DashboardShell({
   userPermissions, 
   isSuperAdmin 
 }: DashboardShellProps) {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isSidebarOpen, setSidebarOpen] = useState(false); // Default false for mobile first approach, or we can use useEffect
+
+  // Close sidebar on route change for mobile
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+    
+    // Initial check
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
-    <div style={{ display: 'flex', height: '100vh', width: '100vw', overflow: 'hidden' }}>
+    <div className="dashboard-layout">
+      {/* Mobile Backdrop */}
+      <div 
+        className={`dashboard-backdrop ${isSidebarOpen ? 'open' : ''}`} 
+        onClick={() => setSidebarOpen(false)}
+      />
+
       {/* Sidebar */}
-      <aside style={{
-        width: isSidebarOpen ? '260px' : '0px',
-        opacity: isSidebarOpen ? 1 : 0,
-        background: 'var(--surface)',
-        borderRight: isSidebarOpen ? '1px solid var(--border)' : 'none',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        overflow: 'hidden',
-        whiteSpace: 'nowrap'
-      }}>
+      <aside className={`dashboard-sidebar ${isSidebarOpen ? '' : 'closed'}`}>
         <div style={{ padding: '1.5rem 1rem', display: 'flex', flexDirection: 'column', height: '100%', minWidth: '260px' }}>
           <div style={{ marginBottom: '2rem', padding: '0 0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h2 style={{ fontSize: '1.25rem', color: 'var(--primary)', fontWeight: 'bold' }}>Dashboard</h2>
@@ -53,31 +66,31 @@ export default function DashboardShell({
           </div>
           
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
-            <Link href="/dashboard" className="sidebar-link">
+            <Link href="/dashboard" className="sidebar-link" onClick={() => window.innerWidth <= 768 && setSidebarOpen(false)}>
               Beranda
             </Link>
             
             <Protect permission="manage_users" userPermissions={userPermissions} isSuperAdmin={isSuperAdmin}>
-              <Link href="/dashboard/users" className="sidebar-link">
+              <Link href="/dashboard/users" className="sidebar-link" onClick={() => window.innerWidth <= 768 && setSidebarOpen(false)}>
                 Users
               </Link>
             </Protect>
             
             <Protect permission="manage_roles" userPermissions={userPermissions} isSuperAdmin={isSuperAdmin}>
-              <Link href="/dashboard/roles" className="sidebar-link">
+              <Link href="/dashboard/roles" className="sidebar-link" onClick={() => window.innerWidth <= 768 && setSidebarOpen(false)}>
                 Roles & Permissions
               </Link>
             </Protect>
 
             <Protect permission="manage_settings" userPermissions={userPermissions} isSuperAdmin={isSuperAdmin}>
-              <Link href="/dashboard/settings" className="sidebar-link">
+              <Link href="/dashboard/settings" className="sidebar-link" onClick={() => window.innerWidth <= 768 && setSidebarOpen(false)}>
                 Pengaturan Aplikasi
               </Link>
             </Protect>
           </nav>
 
           <div style={{ padding: '1rem 0.5rem', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <Link href="/dashboard/profile" style={{ display: 'block', textDecoration: 'none', color: 'var(--foreground)', padding: '0.5rem', borderRadius: 'var(--radius-sm)', background: 'var(--background)', border: '1px solid var(--border)' }}>
+            <Link href="/dashboard/profile" onClick={() => window.innerWidth <= 768 && setSidebarOpen(false)} style={{ display: 'block', textDecoration: 'none', color: 'var(--foreground)', padding: '0.5rem', borderRadius: 'var(--radius-sm)', background: 'var(--background)', border: '1px solid var(--border)' }}>
               <strong style={{ display: 'block', fontSize: '0.85rem', overflow: 'hidden', textOverflow: 'ellipsis' }}>{session.email}</strong>
               <span style={{ fontSize: '0.75rem', opacity: 0.7, color: 'var(--primary)' }}>Edit Profil &rarr;</span>
             </Link>
@@ -89,7 +102,7 @@ export default function DashboardShell({
       </aside>
 
       {/* Main Content */}
-      <main style={{ flex: 1, overflowY: 'auto', background: 'var(--background)', display: 'flex', flexDirection: 'column', transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)' }}>
+      <main className="dashboard-main">
         <header style={{ height: '64px', minHeight: '64px', background: 'var(--surface)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', padding: '0 1.5rem', gap: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', width: isSidebarOpen ? '0px' : '40px', overflow: 'hidden', transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', opacity: isSidebarOpen ? 0 : 1 }}>
             <button 
@@ -102,7 +115,7 @@ export default function DashboardShell({
           </div>
           <h1 style={{ fontSize: '1.1rem', fontWeight: 500 }}>Sistem Administrasi</h1>
         </header>
-        <div style={{ padding: '2rem', flex: 1 }}>
+        <div style={{ padding: '1rem', flex: 1 }}>
           {children}
         </div>
       </main>
