@@ -1,64 +1,27 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '2rem', textAlign: 'center' }}>
+      <main style={{ background: 'var(--surface)', padding: '3rem', borderRadius: 'var(--radius-max)', border: '1px solid var(--border)', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)', maxWidth: '600px', width: '100%' }}>
+        <h1 style={{ marginBottom: '1rem', fontSize: '2rem', color: 'var(--primary)' }}>Next.js Fullstack Engine</h1>
+        <p style={{ marginBottom: '2rem', fontSize: '1.1rem', color: 'var(--foreground)', opacity: 0.8 }}>
+          SPA First UI dengan Clean Architecture.
+        </p>
+        
+        <div style={{ padding: '1.5rem', background: 'var(--background)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border)', textAlign: 'left' }}>
+          <h2 style={{ fontSize: '1.2rem', marginBottom: '1rem' }}>✅ Fase 5 Selesai</h2>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem', opacity: 0.9 }}>
+            <li>✔️ Desain Layout Dashboard Premium (Sidebar + Header)</li>
+            <li>✔️ Layout SPA Tanpa Full Reload (`{'<Link>'}`)</li>
+            <li>✔️ Komponen Proteksi RBAC Frontend (`{'<Protect>'}`)</li>
+            <li>✔️ Layout Landing/Login Minimalis Premium</li>
+            <li>✔️ Global Loading States Interaktif</li>
+          </ul>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        
+        <div style={{ marginTop: '2rem' }}>
+          <button className="btn" style={{ background: 'var(--primary)', color: 'white', fontWeight: 'bold' }}>
+            Lanjut ke Fase 6
+          </button>
         </div>
       </main>
     </div>
