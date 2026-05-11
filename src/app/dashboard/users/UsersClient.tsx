@@ -199,7 +199,7 @@ export default function UsersClient({ roles }: { roles: RoleData[] }) {
         <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <input name="name" defaultValue={selectedUser?.name} placeholder="Nama Lengkap" required style={inputStyle} />
           <input name="email" defaultValue={selectedUser?.email} type="email" placeholder="Email" required style={inputStyle} />
-          <input name="password" type="password" placeholder={selectedUser ? "Password (kosongkan jika tidak diubah)" : "Password"} required={!selectedUser} style={inputStyle} />
+          <input name="password" type="password" minLength={6} placeholder={selectedUser ? "Password (kosongkan jika tidak diubah)" : "Password"} required={!selectedUser} style={inputStyle} />
           
           <div style={{ position: 'relative', marginTop: '0.5rem' }}>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: 500 }}>Pilih Roles</label>

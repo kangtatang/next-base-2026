@@ -64,7 +64,7 @@ export default function ProfileClient({ user }: { user: UserData }) {
 
         <div>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>Password Baru</label>
-          <input name="password" type="password" placeholder="Kosongkan jika tidak ingin mengubah password" style={inputStyle} />
+          <input name="password" type="password" minLength={6} placeholder="Kosongkan jika tidak ingin mengubah password" style={inputStyle} />
           <p style={{ fontSize: '0.8rem', opacity: 0.6, marginTop: '0.5rem' }}>Mengubah password akan berlaku pada login berikutnya.</p>
         </div>
 
