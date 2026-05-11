@@ -32,6 +32,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# SQLite Database
+*.db
+*.db-journal
 
 # vercel
 .vercel
@@ -41,3 +46,29 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# Prisma
+/prisma/migrations/migration_lock.toml
+
+# AI Agent instruction files (internal only)
+/.agent/
+ROADMAP.md
+AGENTS.md
+CLAUDE.md
+
+# Editor & IDE directories
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# macOS extended attributes
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Turbopack cache
+.turbo/
+
