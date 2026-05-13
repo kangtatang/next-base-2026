@@ -82,6 +82,12 @@ export default function DashboardShell({
               </Link>
             </Protect>
 
+            <Protect permission="manage_roles" userPermissions={userPermissions} isSuperAdmin={isSuperAdmin}>
+              <Link href="/dashboard/permissions" className="sidebar-link" onClick={() => window.innerWidth <= 768 && setSidebarOpen(false)}>
+                Hak Akses (Permissions)
+              </Link>
+            </Protect>
+
             <Protect permission="manage_settings" userPermissions={userPermissions} isSuperAdmin={isSuperAdmin}>
               <Link href="/dashboard/settings" className="sidebar-link" onClick={() => window.innerWidth <= 768 && setSidebarOpen(false)}>
                 Pengaturan Aplikasi

@@ -21,6 +21,7 @@ async function main() {
   const permissionsData = [
     { name: 'manage_users', description: 'Can create, read, update, delete users' },
     { name: 'manage_roles', description: 'Can manage roles and permissions' },
+    { name: 'manage_permissions', description: 'Can create, read, update, delete permissions' },
     { name: 'manage_settings', description: 'Can update app settings' },
     { name: 'view_dashboard', description: 'Can view main dashboard' },
   ];
